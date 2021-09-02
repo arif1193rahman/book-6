@@ -13,20 +13,28 @@
 
 <body>
     <section class="container">
-        <h1 class="text-center fw-bolder m-3 text-success fs-1">Here is your Book Self</h1>
+        <h1 class="text-center fw-bolder m-3 text-success fs-1">
+            <u>Here is your Book self</u>
+        </h1>
 
 
         <div class="input-group mb-3 w-50 mx-auto">
 
 
-            <input id="input-field" type="text" class="form-control" placeholder="book"
+            <input id="input-field" type="text" class="form-control" placeholder="Search your book"
                 aria-label="Recipient's username" aria-describedby="button-addon2">
 
 
             <button onclick="searchBook()" id="button-search" class="btn btn-success" type="button"
-                id="search-button">Button</button>
+                id="search-button">Search</button>
         </div>
 
+        <!-- Error Massage  -->
+        <div>
+            <h3 id="error-massage" class="bg-dark text-center text-danger">Insert a Valid Name And do not empty</h3>
+        </div>
+
+        <!-- Total Book Result -->
         <h1 id="total-books" class="bg-dark text-warning text-center"></h1>
 
         <!-- Books UI Design -->

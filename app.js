@@ -1,30 +1,52 @@
+
+document.getElementById('error-massage').style.display = "none";
 const searchBook = () => {
     const inputField = document.getElementById('input-field');
-    // const displayImage = document.getElementById('display-image');
-    // console.log(inputField.value)
     const searchFieldText = inputField.value;
-    // const displayImageId = displayImage.innerHTML;
     inputField.value = '';
 
-    // const url1 = `https://covers.openlibrary.org/b/id/${displayImageId}-M.jpg`
-    const url = `https://openlibrary.org/search.json?q=${searchFieldText}`
-    // console.log(url)
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayBookSelf(data))
+    if (searchFieldText === "") {
+        displayError();
+    }
+    else {
+        document.getElementById('error-massage').style.display = "none";
+
+        const url = `https://openlibrary.org/search.json?q=${searchFieldText}`
+        // console.log(url)
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displayBookSelf(data))
+    }
+
+}
+const displayError = () => {
+    document.getElementById('error-massage').style.display = "block";
+    document.getElementById('total-books').style.display = "none";
+    document.getElementById('search-book-result').textContent = "";
+
 }
 
 const displayBookSelf = selfs => {
+    document.getElementById('total-books').innerText = "";
+    document.getElementById('error-massage').style.display = "block";
     // console.log(self)
     const searchBookResult = document.getElementById('search-book-result');
     searchBookResult.textContent = "";
     const bookList = selfs.docs;
-    // console.log(bookList.length);
-    document.getElementById('total-books').innerText = `Total Book ${bookList.length}`;
-    bookList.forEach(self => {
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
+
+    if (selfs.numFound === 0) {
+        displayError();
+    }
+    else {
+        // console.log(bookList.length);
+        document.getElementById('error-massage').style.display = "none";
+        document.getElementById('total-books').innerText = `Total Book ${bookList.length}`;
+
+
+        bookList.forEach(self => {
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
                  <div class="card h-100">
                     <div>
                     <img id="display-image" src="https://covers.openlibrary.org/b/id/${self.cover_i}-L.jpg" class="card-img-top" alt="">
@@ -39,8 +61,10 @@ const displayBookSelf = selfs => {
                     </div>
                 </div>
         `;
-        searchBookResult.appendChild(div);
-    })
+            searchBookResult.appendChild(div);
+        })
+    }
+
 }
 
 // const imageResult = images => {
